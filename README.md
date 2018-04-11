@@ -7,7 +7,7 @@ A pretty simple map browser based on leaflet that uses the flickr and 500px API'
 
 * jquery (written against 3.2.1 but I figure any version will work)
 * leaflet (written against 1.1.0) 
-* loadash.js
+* lodash.js
 
 ## Usage
 
