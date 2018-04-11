@@ -27,5 +27,5 @@ One other value perhaps of interest is **marker_max** in map.js. This controls h
 
 ## The Google Maps Problem
 
-I wanted to include street map images and the newer "google maps photos" that has apparently replaced Panorami in the Google Earth app, but their API is pretty hostile to this kind of tool. Panoramio is completely gone now, and the ability to search images with a bounding box is deprecated too. That's why the UI includes a link to google maps over on the right side, so those photos can still be explored even though it's a big pain.
+I wanted to include street map images and the newer "google maps photos" that has apparently replaced Panoramio in the Google Earth app, but their API is pretty hostile to this kind of tool. Panoramio is completely gone now, and the ability to search images with a bounding box is deprecated too. That's why the UI includes a link to google maps over on the right side, so those photos can still be explored even though it's a big pain.
 
