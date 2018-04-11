@@ -1,0 +1,36 @@
+
+#map {
+  height: 95%;
+  width: 70%;
+  border: 1px solid grey;
+}
+
+#rightside {
+  width: 28%;
+  float: right;
+  margin-top: 5%;
+}
+
+#preview {
+  border: 1px solid grey;
+  display: none;
+}
+
+#info {
+  padding: 2%;
+}
+
+#blab {
+  border: 1px solid grey;
+  margin-top: 5%;
+  padding: 2%;
+}
+
+#imgpreview {
+  width: 100%;
+}
+
+#derp {
+  width: 400px;
+  height: 400px;
+}

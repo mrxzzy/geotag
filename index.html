@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Leaflet Flickr+500px Geotag Browser</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="leaflet.css" />
+    <script type="text/javascript" src="jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="keys.js"></script>
+    <script type="text/javascript" src="lodash.js"></script>
+    <script type="text/javascript" src="leaflet.js"></script>
+  </head>
+  <body>
+    <div id="rightside">
+      <div id="preview">
+        <img id="imgpreview"><br>
+        <div id="info">
+          <p>This image is hosted on <a target="_blank" id="directlink" href=''><span id="imgsrc"></span></a><br>
+          Google Maps link to this location: <br><a target="_blank" id="googmaps" href=''></a>
+          </p>
+        </div>
+      </div>
+      <div id="blab">
+      <p>
+
+      This is an extremely basic geotagged image browser, sourcing from 500px
+      and flickr. Drag the map to start images loading. You can click on an
+      icon on the map to load that image at full size in a new tab. Links on
+      the right side can do the same thing.
+      
+      </p>
+
+      <p><span style="font-weight: bold">Please Note:</span>
+      
+      500px geotags are often hilariously inaccurate, apparently they care more
+      about post processing than metadata over there. If you're trying to find
+      the location of a 500px picture be prepared to do a lot of extra
+      homework.
+
+      <p><span style="font-weight: bold">Also Note:</span>
+      
+      This page is using free api keys to query the maps and images. If stuff
+      stops working it's likely because of query overruns.
+
+      <p><span style="font-weight: bold">Last but not least:</span>
+      
+      All queries are run with the "work safe" parameter set. Sometimes some
+      weird crap from flickr leaks through, sorry not my fault. flickr users,
+      y'all are a bunch of freaks.
+
+      </p></div>
+    </div>
+    <div id="map"></div>
+    <div id="derp"></div>
+    <script type="text/javascript" src="map.js"></script>
+    <script type="text/javascript" src="flickr.js"></script>
+    <script type="text/javascript" src="500px.js"></script>
+  </body>
+</html>
