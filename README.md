@@ -3,6 +3,8 @@
 
 A pretty simple map browser based on leaflet that uses the flickr and 500px API's to find geotagged images and arrange them on a map. Mission is to make it easier to scout out photography destinations.
 
+![screenshot of geotag in web browser](https://i.imgur.com/NRMDbCq.png)
+
 ## Dependencies
 
 * jquery (written against 3.2.1 but I figure any version will work)
