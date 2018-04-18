@@ -10,6 +10,8 @@ A pretty simple map browser based on leaflet that uses the flickr and 500px API'
 * jquery (written against 3.2.1 but I figure any version will work)
 * leaflet (written against 1.1.0) 
 * lodash.js
+* OverlappingMarkerSpiderfier (https://github.com/jawj/OverlappingMarkerSpiderfier-Leaflet)
+* Leaflet.contextmenu (https://github.com/aratcliffe/Leaflet.contextmenu)
 
 ## Usage
 
@@ -21,6 +23,7 @@ You will need to create **./keys.js** to store your api keys. You'll need to reg
 var api_keys = {
   FLICKR : 'your flickr api key',
   FIVEPX : 'your 500px consumer key',
+  GOOG :   'google api key, to query elevation data',
   MAPBOX : 'yep a mapbox key as well'
 }
 ```

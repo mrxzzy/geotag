@@ -34,3 +34,7 @@
   width: 400px;
   height: 400px;
 }
+
+#goog {
+  display: none;
+}

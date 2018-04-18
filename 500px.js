@@ -1,12 +1,25 @@
-var pxgroup = new L.LayerGroup().addTo(map);
+var px_list = {};
+var pxgroup = new L.FeatureGroup().addTo(map);
 controlLayers.addOverlay(pxgroup, '500px photos');
 
-var px_list = {};
+pxgroup.on('mouseover', function(event) {
+  var marker = event.layer;
+  $('#preview').show();
+  $('#imgpreview').attr('src',marker.options.preview);
+  $('#directlink').attr('href',marker.options.link);
+  make_goog_link(marker.options.lat,marker.options.lng);
+  set_source(marker.options.source);
+});
 
 function cleanup_500px(purge_all) {
   var new_list = {};
 
   if(purge_all == true){
+    for(var image in px_list) {
+      if(px_list.hasOwnProperty(image)) {
+        oms.removeMarker(px_list[image]);
+      }
+    }
     pxgroup.clearLayers();
     px_list = new_list;
     return;
@@ -15,9 +28,11 @@ function cleanup_500px(purge_all) {
   // only delete images not in current map bounds
   for(var image in px_list) {
     if(px_list.hasOwnProperty(image)) {
-      if(!map.getBounds().contains(px_list[image].getLatLng())) {
+      var marker = px_list[image];
+      if(!map.getBounds().contains(marker.getLatLng())) {
         //console.log("deleting: "+image);
-        pxgroup.removeLayer(px_list[image]);
+        pxgroup.removeLayer(maker);
+        oms.removeMarker(marker);
 
       } else {
         new_list[image] = px_list[image]
@@ -84,21 +99,22 @@ function query_px(center) {
           preview: preview,
           link: link,
           lat: photoContent.latitude,
-          lng: photoContent.longitude
-        });
-
-        marker.on('mouseover', function() {
-          $('#preview').show();
-          $('#imgpreview').attr('src',this.options.preview);
-          $('#directlink').attr('href',this.options.link);
-          set_source('500px');
-          make_goog_link(this.options.lat,this.options.lng);
-        });
-        marker.on('click', function () {
-          window.open(this.options.link);
+          lng: photoContent.longitude,
+          source: '500px',
+          contextmenu: true,
+          contextmenuItems: [{
+            text: 'Visit 500px Source',
+            callback: sourcelink,
+            index: 0
+          },{
+            text: 'Visit here in Google Maps',
+            callback: mapslink,
+            index: 1
+          }]
         });
 
         marker.addTo(pxgroup);
+        oms.addMarker(marker);
         px_list[photoContent.id] = marker;
       }
       //console.log("500px size: "+Object.keys(px_list).length);

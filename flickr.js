@@ -1,12 +1,27 @@
-var flickrgroup = new L.LayerGroup().addTo(map);
+//var flickrgroup = new L.LayerGroup().addTo(map);
+var flickrgroup = new L.FeatureGroup().addTo(map);
 controlLayers.addOverlay(flickrgroup, 'Flickr photos');
 
 var flickr_list = {};
+
+flickrgroup.on('mouseover', function(event) {
+  var marker = event.layer;
+  $('#preview').show();
+  $('#imgpreview').attr('src',marker.options.preview);
+  $('#directlink').attr('href',marker.options.link);
+  make_goog_link(marker.options.lat,marker.options.lng);
+  set_source(marker.options.source);
+});
 
 function cleanup_flickr(purge_all) {
   var new_list = {};
 
   if(purge_all == true){
+    for(var image in flickr_list) {
+      if(flickr_list.hasOwnProperty(image)) {
+        oms.removeMarker(flickr_list[image]);
+      }
+    }
     flickrgroup.clearLayers();
     flickr_list = new_list;
     return;
@@ -15,12 +30,14 @@ function cleanup_flickr(purge_all) {
   // only delete images not in current map bounds
   for(var image in flickr_list) {
     if(flickr_list.hasOwnProperty(image)) {
-      if(!map.getBounds().contains(flickr_list[image].getLatLng())) {
+      var marker = flickr_list[image];
+      if(!map.getBounds().contains(marker.getLatLng())) {
         //console.log("deleting: "+image);
-        flickrgroup.removeLayer(flickr_list[image]);
+        flickrgroup.removeLayer(marker);
+        oms.removeMarker(marker);
 
       } else {
-        new_list[image] = flickr_list[image]
+        new_list[image] = marker;
       }
     }
   }
@@ -46,9 +63,10 @@ function query_flickr(bbox) {
         cleanup_flickr(false);
       }
 
-      //flickrgroup.clearLayers();
       for (var i = 0; i < data.photos.photo.length; i++) {
         var photoContent = data.photos.photo[i];
+
+        // don't make a marker if image already has one
         if(photoContent.id in flickr_list) {
             //console.log("skipping a photo! "+photoContent.id);
             continue;
@@ -65,20 +83,22 @@ function query_flickr(bbox) {
            preview: photoContent.url_s,
            lat: photoContent.latitude,
            lng: photoContent.longitude,
-           link: link
+           link: link,
+           source: 'Flickr',
+           contextmenu: true,
+           contextmenuItems: [{
+             text: 'Visit Flickr Source',
+             callback: sourcelink,
+             index: 0
+           },{
+             text: 'Visit here in Google Maps',
+             callback: mapslink,
+             index: 1
+           }]
         });
 
-        marker.on('mouseover', function() {
-          $('#preview').show();
-          $('#imgpreview').attr('src',this.options.preview);
-          $('#directlink').attr('href',this.options.link);
-          make_goog_link(this.options.lat,this.options.lng);
-          set_source('Flickr');
-        });
-        marker.on('click', function() {
-          window.open(this.options.link);
-        });
         marker.addTo(flickrgroup);
+        oms.addMarker(marker);
         flickr_list[photoContent.id] = marker;
       }
     },
