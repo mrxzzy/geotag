@@ -29,9 +29,6 @@ map.on({
     if(e.name == 'Flickr photos') {
       cleanup_flickr(true);
     }
-    if(e.name == '500px photos') {
-      cleanup_500px(true);
-    }
   }
 });
 
@@ -141,7 +138,6 @@ function run_queries() {
   lng = center.lng;
 
   query_flickr(bnds);
-  query_px(center);
 }
 
 $(document).ready(function () {

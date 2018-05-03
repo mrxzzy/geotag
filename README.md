@@ -22,7 +22,6 @@ You will need to create **./keys.js** to store your api keys. You'll need to reg
 ```javascript
 var api_keys = {
   FLICKR : 'your flickr api key',
-  FIVEPX : 'your 500px consumer key',
   GOOG :   'google api key, to query elevation data',
   MAPBOX : 'yep a mapbox key as well'
 }
@@ -33,4 +32,9 @@ One other value perhaps of interest is **marker_max** in map.js. This controls h
 ## The Google Maps Problem
 
 I wanted to include street map images and the newer "google maps photos" that has apparently replaced Panoramio in the Google Earth app, but their API is pretty hostile to this kind of tool. Panoramio is completely gone now, and the ability to search images with a bounding box is deprecated too. That's why the UI includes a link to google maps over on the right side, so those photos can still be explored even though it's a big pain.
+
+## 500px Gone
+
+500px is killing off their API in June 2018. To "focus our energy on continuing to build the world's best photography community." Whatever, enjoy your Chinese overloards. The 500px layers are now removed from this tool.
+
 
