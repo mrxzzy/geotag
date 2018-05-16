@@ -50,6 +50,8 @@ function query_flickr(bbox) {
   flickrurl = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key="+api_keys.FLICKR+"&sort=interestingness-desc&safe_search=1&content_type=1&media=photos&has_geo=1&geo_context=0&extras=geo%2Ctags%2Cmachine_tags%2Curl_t%2Curl_s&format=json&per_page=100&nojsoncallback=1&tags=outdoors,landscape,mountain";
 
   flickrbbox = ''+bbox['_southWest']['lng']+','+bbox['_southWest']['lat']+','+bbox['_northEast']['lng']+','+bbox['_northEast']['lat']
+  //  flickrbbox = ''+sw['lng']+','+sw['lat']+','+ne['lng']+','+ne['lat']
+
   finalurl = flickrurl+'&bbox='+flickrbbox
 
   $.ajax({
@@ -62,6 +64,7 @@ function query_flickr(bbox) {
       if(Object.keys(flickr_list).length > marker_max) {
         cleanup_flickr(false);
       }
+
 
       for (var i = 0; i < data.photos.photo.length; i++) {
         var photoContent = data.photos.photo[i];
@@ -78,7 +81,7 @@ function query_flickr(bbox) {
 
         var link = "https://www.flickr.com/photos/"+photoContent.owner+'/'+photoContent.id;
 
-        console.log(photoContent);
+        //console.log(photoContent);
         var marker = new L.marker([photoContent.latitude, photoContent.longitude], {
            icon: photoIcon,
            preview: photoContent.url_s,

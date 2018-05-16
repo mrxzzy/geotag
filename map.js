@@ -12,6 +12,8 @@ function initMap() {
   console.log('goog init done');
 }
 
+scroll_boundary = L.latLngBounds( L.latLng(-180,-180), L.latLng(180,180) );
+
 var map = L.map('map', {
   center: [38.5612503,-96.2895463],
   zoom: 5,
@@ -21,7 +23,8 @@ var map = L.map('map', {
   contextmenuItems: [{
     text: 'Elevation',
     callback: googleElevation
-  }]
+  }],
+  maxBounds:  scroll_boundary
 });
 
 map.on({
@@ -132,6 +135,9 @@ controlLayers.addBaseLayer(mapbxSat,'Mapbox Satellite');
 function run_queries() {
 
   var bnds = map.getBounds();
+  var sw = bnds.getSouthWest().wrap();
+  var ne = bnds.getNorthEast().wrap();
+
   var center = map.getCenter();
 
   lat = center.lat;
