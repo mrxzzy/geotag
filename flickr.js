@@ -47,7 +47,13 @@ function cleanup_flickr(purge_all) {
 
 function query_flickr(bbox) {
   console.log("flickr query going..");
-  flickrurl = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key="+api_keys.FLICKR+"&sort=interestingness-desc&safe_search=1&content_type=1&media=photos&has_geo=1&geo_context=0&extras=geo%2Ctags%2Cmachine_tags%2Curl_t%2Curl_s&format=json&per_page=100&nojsoncallback=1&tags=outdoors,landscape,mountain";
+  var unixtime = Math.round((new Date()).getTime() / 1000);
+
+  var interval = unixtime - (86400 * 30 * 2);
+
+  flickrurl = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key="+api_keys.FLICKR+"&sort=interestingness-desc&safe_search=1&content_type=1&media=photos&has_geo=1&geo_context=0&extras=geo%2Ctags%2Cmachine_tags%2Curl_t%2Curl_s&format=json&per_page=100&nojsoncallback=1";
+  //flickrurl = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key="+api_keys.FLICKR+"&sort=interestingness-desc&safe_search=1&content_type=1&media=photos&has_geo=1&geo_context=0&extras=geo%2Ctags%2Cmachine_tags%2Curl_t%2Curl_s&format=json&per_page=100&nojsoncallback=1&tags=outdoors,landscape,mountain";
+  //flickrurl = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key="+api_keys.FLICKR+"&sort=interestingness-desc&safe_search=1&content_type=1&media=photos&has_geo=1&geo_context=0&extras=geo%2Ctags%2Cmachine_tags%2Curl_t%2Curl_s&format=json&per_page=100&nojsoncallback=1&min_taken_date="+interval;
 
   flickrbbox = ''+bbox['_southWest']['lng']+','+bbox['_southWest']['lat']+','+bbox['_northEast']['lng']+','+bbox['_northEast']['lat']
   //  flickrbbox = ''+sw['lng']+','+sw['lat']+','+ne['lng']+','+ne['lat']

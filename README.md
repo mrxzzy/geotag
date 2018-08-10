@@ -12,6 +12,7 @@ A pretty simple map browser based on leaflet that uses the flickr API to find ge
 * lodash.js
 * OverlappingMarkerSpiderfier (https://github.com/jawj/OverlappingMarkerSpiderfier-Leaflet)
 * Leaflet.contextmenu (https://github.com/aratcliffe/Leaflet.contextmenu)
+* Leaflet Coordiantes Control (https://github.com/zimmicz/Leaflet-Coordinates-Control)
 
 ## Usage
 

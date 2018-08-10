@@ -27,11 +27,17 @@ var map = L.map('map', {
   maxBounds:  scroll_boundary
 });
 
+var coords = new L.Control.Coordinates();
+coords.addTo(map);
+
 map.on({
   overlayremove: function(e) {
     if(e.name == 'Flickr photos') {
       cleanup_flickr(true);
     }
+  },
+  click: function(e) {
+    coords.setCoordinates(e);
   }
 });
 
@@ -104,6 +110,11 @@ var controlLayers = L.control.layers( null, null, {
 
 L.control.zoom({position: "topright"}).addTo(map);
 
+var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+  maxZoom: 24,
+  attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+}).addTo(map);
+
 var googSat = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
   maxZoom: 24,
   subdomains:['mt0','mt1','mt2','mt3'],
@@ -118,7 +129,7 @@ var googStreet = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}
   maxZoom: 24,
   subdomains:['mt0','mt1','mt2','mt3'],
   attribution: '<a href="https://maps.google.com/">Google Maps</a>',
-}).addTo(map);
+});
 
 var mapbxSat = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
   maxZoom: 24,
@@ -130,6 +141,7 @@ var mapbxSat = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{
 controlLayers.addBaseLayer(googSat,'Google Satellite');
 controlLayers.addBaseLayer(googTerrain,'Google Terrain');
 controlLayers.addBaseLayer(googStreet,'Google Street');
+controlLayers.addBaseLayer(osm,'OpenStreetMaps');
 controlLayers.addBaseLayer(mapbxSat,'Mapbox Satellite');
 
 function run_queries() {
